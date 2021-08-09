@@ -10,8 +10,8 @@ class MyTheme {
         backgroundColor: Colors.white,
         brightness: Brightness.light,
         accentColor: Colors.black,
-        cardColor: Color(0xFFF6F8DC),
-        buttonColor: Colors.grey.withOpacity(0.1),
+        cardColor: Colors.grey.withOpacity(0.1),
+        buttonColor: Colors.grey,
       );
 
   static ThemeData dark(BuildContext context) => ThemeData(

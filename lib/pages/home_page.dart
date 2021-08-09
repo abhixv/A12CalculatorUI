@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
               fontWeight: FontWeight.w100),
         ),
         centerTitle: true,
-        backgroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: Colors.transparent,
         elevation: 0.0,
       ),
       backgroundColor: Theme.of(context).backgroundColor,
