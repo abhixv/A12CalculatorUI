@@ -42,7 +42,9 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text(
           "Calculator",
-          style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),
+          style: TextStyle(
+              //fontFamily: GoogleFonts.poppins().fontFamily,
+              fontWeight: FontWeight.w100),
         ),
         centerTitle: true,
         backgroundColor: Colors.black,
