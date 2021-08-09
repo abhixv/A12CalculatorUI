@@ -1,3 +1,4 @@
+import 'package:calculator/utils/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:math_expressions/math_expressions.dart';
@@ -47,10 +48,10 @@ class _HomePageState extends State<HomePage> {
               fontWeight: FontWeight.w100),
         ),
         centerTitle: true,
-        backgroundColor: Colors.black,
+        backgroundColor: Theme.of(context).backgroundColor,
         elevation: 0.0,
       ),
-      backgroundColor: Colors.black,
+      backgroundColor: Theme.of(context).backgroundColor,
       body: Center(
         child: ListView(
           children: [
@@ -80,7 +81,7 @@ class _HomePageState extends State<HomePage> {
             height: 60,
             width: 60,
             decoration: BoxDecoration(
-                color: Colors.grey.withOpacity(0.1),
+                color: Theme.of(context).buttonColor,
                 borderRadius: BorderRadius.circular(16.0)),
             child: InkWell(
               onTap: () => numberClick("7"),
@@ -88,7 +89,7 @@ class _HomePageState extends State<HomePage> {
                 child: Text(
                   "7",
                   style: TextStyle(
-                      color: Colors.white,
+                      color: Theme.of(context).accentColor,
                       fontWeight: FontWeight.w100,
                       fontSize: 25.0),
                 ),
@@ -103,7 +104,7 @@ class _HomePageState extends State<HomePage> {
             height: 60,
             width: 60,
             decoration: BoxDecoration(
-                color: Colors.grey.withOpacity(0.1),
+                color: Theme.of(context).buttonColor,
                 borderRadius: BorderRadius.circular(16.0)),
             child: InkWell(
               onTap: () => numberClick("8"),
@@ -111,7 +112,7 @@ class _HomePageState extends State<HomePage> {
                 child: Text(
                   "8",
                   style: TextStyle(
-                      color: Colors.white,
+                      color: Theme.of(context).accentColor,
                       fontWeight: FontWeight.w100,
                       fontSize: 25.0),
                 ),
@@ -126,7 +127,7 @@ class _HomePageState extends State<HomePage> {
             height: 60,
             width: 60,
             decoration: BoxDecoration(
-                color: Colors.grey.withOpacity(0.1),
+                color: Theme.of(context).buttonColor,
                 borderRadius: BorderRadius.circular(16.0)),
             child: InkWell(
               onTap: () => numberClick("9"),
@@ -134,7 +135,7 @@ class _HomePageState extends State<HomePage> {
                 child: Text(
                   "9",
                   style: TextStyle(
-                      color: Colors.white,
+                      color: Theme.of(context).accentColor,
                       fontWeight: FontWeight.w100,
                       fontSize: 25.0),
                 ),
@@ -149,7 +150,7 @@ class _HomePageState extends State<HomePage> {
             height: 60,
             width: 60,
             decoration: BoxDecoration(
-                color: Colors.grey.withOpacity(0.1),
+                color: Theme.of(context).buttonColor,
                 borderRadius: BorderRadius.circular(16.0)),
             child: InkWell(
               onTap: () => numberClick("/"),
@@ -157,7 +158,7 @@ class _HomePageState extends State<HomePage> {
                 child: Text(
                   "/",
                   style: TextStyle(
-                      color: Colors.white,
+                      color: Theme.of(context).accentColor,
                       fontWeight: FontWeight.w100,
                       fontSize: 25.0),
                 ),
@@ -172,14 +173,14 @@ class _HomePageState extends State<HomePage> {
             height: 60,
             width: 60,
             decoration: BoxDecoration(
-                color: Colors.grey.withOpacity(0.1),
+                color: Theme.of(context).buttonColor,
                 borderRadius: BorderRadius.circular(16.0)),
             child: InkWell(
               onTap: () => clear("C"),
               child: Center(
                 child: Icon(
                   Icons.backspace,
-                  color: Colors.white,
+                  color: Theme.of(context).accentColor,
                   size: 16.0,
                 ),
               ),
@@ -200,7 +201,7 @@ class _HomePageState extends State<HomePage> {
             height: 60,
             width: 60,
             decoration: BoxDecoration(
-                color: Colors.grey.withOpacity(0.1),
+                color: Theme.of(context).buttonColor,
                 borderRadius: BorderRadius.circular(16.0)),
             child: InkWell(
               onTap: () => numberClick("4"),
@@ -208,7 +209,7 @@ class _HomePageState extends State<HomePage> {
                 child: Text(
                   "4",
                   style: TextStyle(
-                      color: Colors.white,
+                      color: Theme.of(context).accentColor,
                       fontWeight: FontWeight.w100,
                       fontSize: 25.0),
                 ),
@@ -222,7 +223,7 @@ class _HomePageState extends State<HomePage> {
             height: 60,
             width: 60,
             decoration: BoxDecoration(
-                color: Colors.grey.withOpacity(0.1),
+                color: Theme.of(context).buttonColor,
                 borderRadius: BorderRadius.circular(16.0)),
             child: InkWell(
               onTap: () => numberClick("5"),
@@ -230,7 +231,7 @@ class _HomePageState extends State<HomePage> {
                 child: Text(
                   "5",
                   style: TextStyle(
-                      color: Colors.white,
+                      color: Theme.of(context).accentColor,
                       fontWeight: FontWeight.w100,
                       fontSize: 25.0),
                 ),
@@ -244,7 +245,7 @@ class _HomePageState extends State<HomePage> {
             height: 60,
             width: 60,
             decoration: BoxDecoration(
-                color: Colors.grey.withOpacity(0.1),
+                color: Theme.of(context).buttonColor,
                 borderRadius: BorderRadius.circular(16.0)),
             child: InkWell(
               onTap: () => numberClick("6"),
@@ -252,7 +253,7 @@ class _HomePageState extends State<HomePage> {
                 child: Text(
                   "6",
                   style: TextStyle(
-                      color: Colors.white,
+                      color: Theme.of(context).accentColor,
                       fontWeight: FontWeight.w100,
                       fontSize: 25.0),
                 ),
@@ -266,7 +267,7 @@ class _HomePageState extends State<HomePage> {
             height: 60,
             width: 60,
             decoration: BoxDecoration(
-                color: Colors.grey.withOpacity(0.1),
+                color: Theme.of(context).buttonColor,
                 borderRadius: BorderRadius.circular(16.0)),
             child: InkWell(
               onTap: () => numberClick("*"),
@@ -274,7 +275,7 @@ class _HomePageState extends State<HomePage> {
                 child: Text(
                   "x",
                   style: TextStyle(
-                      color: Colors.white,
+                      color: Theme.of(context).accentColor,
                       fontWeight: FontWeight.w100,
                       fontSize: 25.0),
                 ),
@@ -288,7 +289,7 @@ class _HomePageState extends State<HomePage> {
             height: 60,
             width: 60,
             decoration: BoxDecoration(
-                color: Colors.grey.withOpacity(0.1),
+                color: Theme.of(context).buttonColor,
                 borderRadius: BorderRadius.circular(16.0)),
             child: InkWell(
               onTap: () => clearAll("C"),
@@ -296,7 +297,7 @@ class _HomePageState extends State<HomePage> {
                 child: Text(
                   "C",
                   style: TextStyle(
-                      color: Colors.white,
+                      color: Theme.of(context).accentColor,
                       fontWeight: FontWeight.w100,
                       fontSize: 25.0),
                 ),
@@ -318,7 +319,7 @@ class _HomePageState extends State<HomePage> {
             height: 60,
             width: 60,
             decoration: BoxDecoration(
-                color: Colors.grey.withOpacity(0.1),
+                color: Theme.of(context).buttonColor,
                 borderRadius: BorderRadius.circular(16.0)),
             child: InkWell(
               onTap: () => numberClick("1"),
@@ -326,7 +327,7 @@ class _HomePageState extends State<HomePage> {
                 child: Text(
                   "1",
                   style: TextStyle(
-                      color: Colors.white,
+                      color: Theme.of(context).accentColor,
                       fontWeight: FontWeight.w100,
                       fontSize: 25.0),
                 ),
@@ -340,7 +341,7 @@ class _HomePageState extends State<HomePage> {
             height: 60,
             width: 60,
             decoration: BoxDecoration(
-                color: Colors.grey.withOpacity(0.1),
+                color: Theme.of(context).buttonColor,
                 borderRadius: BorderRadius.circular(16.0)),
             child: InkWell(
               onTap: () => numberClick("2"),
@@ -348,7 +349,7 @@ class _HomePageState extends State<HomePage> {
                 child: Text(
                   "2",
                   style: TextStyle(
-                      color: Colors.white,
+                      color: Theme.of(context).accentColor,
                       fontWeight: FontWeight.w100,
                       fontSize: 25.0),
                 ),
@@ -362,7 +363,7 @@ class _HomePageState extends State<HomePage> {
             height: 60,
             width: 60,
             decoration: BoxDecoration(
-                color: Colors.grey.withOpacity(0.1),
+                color: Theme.of(context).buttonColor,
                 borderRadius: BorderRadius.circular(16.0)),
             child: InkWell(
               onTap: () => numberClick("3"),
@@ -370,7 +371,7 @@ class _HomePageState extends State<HomePage> {
                 child: Text(
                   "3",
                   style: TextStyle(
-                      color: Colors.white,
+                      color: Theme.of(context).accentColor,
                       fontWeight: FontWeight.w100,
                       fontSize: 25.0),
                 ),
@@ -384,7 +385,7 @@ class _HomePageState extends State<HomePage> {
             height: 60,
             width: 60,
             decoration: BoxDecoration(
-                color: Colors.grey.withOpacity(0.1),
+                color: Theme.of(context).buttonColor,
                 borderRadius: BorderRadius.circular(16.0)),
             child: InkWell(
               onTap: () => numberClick("-"),
@@ -392,7 +393,7 @@ class _HomePageState extends State<HomePage> {
                 child: Text(
                   "-",
                   style: TextStyle(
-                      color: Colors.white,
+                      color: Theme.of(context).accentColor,
                       fontWeight: FontWeight.w100,
                       fontSize: 25.0),
                 ),
@@ -406,7 +407,7 @@ class _HomePageState extends State<HomePage> {
             height: 60,
             width: 60,
             decoration: BoxDecoration(
-                color: Colors.grey.withOpacity(0.1),
+                color: Theme.of(context).buttonColor,
                 borderRadius: BorderRadius.circular(16.0)),
             child: InkWell(
               onTap: () {},
@@ -414,7 +415,7 @@ class _HomePageState extends State<HomePage> {
                 child: Text(
                   "",
                   style: TextStyle(
-                      color: Colors.white,
+                      color: Theme.of(context).accentColor,
                       fontWeight: FontWeight.w100,
                       fontSize: 25.0),
                 ),
@@ -436,7 +437,7 @@ class _HomePageState extends State<HomePage> {
             height: 60,
             width: 60,
             decoration: BoxDecoration(
-                color: Colors.grey.withOpacity(0.1),
+                color: Theme.of(context).buttonColor,
                 borderRadius: BorderRadius.circular(16.0)),
             child: InkWell(
               onTap: () => numberClick("."),
@@ -444,7 +445,7 @@ class _HomePageState extends State<HomePage> {
                 child: Text(
                   ".",
                   style: TextStyle(
-                      color: Colors.white,
+                      color: Theme.of(context).accentColor,
                       fontWeight: FontWeight.w100,
                       fontSize: 25.0),
                 ),
@@ -458,7 +459,7 @@ class _HomePageState extends State<HomePage> {
             height: 60,
             width: 60,
             decoration: BoxDecoration(
-                color: Colors.grey.withOpacity(0.1),
+                color: Theme.of(context).buttonColor,
                 borderRadius: BorderRadius.circular(16.0)),
             child: InkWell(
               onTap: () => numberClick("0"),
@@ -466,7 +467,7 @@ class _HomePageState extends State<HomePage> {
                 child: Text(
                   "0",
                   style: TextStyle(
-                      color: Colors.white,
+                      color: Theme.of(context).accentColor,
                       fontWeight: FontWeight.w100,
                       fontSize: 25.0),
                 ),
@@ -480,7 +481,7 @@ class _HomePageState extends State<HomePage> {
             height: 60,
             width: 60,
             decoration: BoxDecoration(
-                color: Colors.grey.withOpacity(0.1),
+                color: Theme.of(context).buttonColor,
                 borderRadius: BorderRadius.circular(16.0)),
             child: InkWell(
               onTap: () {},
@@ -488,7 +489,7 @@ class _HomePageState extends State<HomePage> {
                 child: Text(
                   "",
                   style: TextStyle(
-                      color: Colors.white,
+                      color: Theme.of(context).accentColor,
                       fontWeight: FontWeight.w100,
                       fontSize: 25.0),
                 ),
@@ -502,7 +503,7 @@ class _HomePageState extends State<HomePage> {
             height: 60,
             width: 60,
             decoration: BoxDecoration(
-                color: Colors.grey.withOpacity(0.1),
+                color: Theme.of(context).buttonColor,
                 borderRadius: BorderRadius.circular(16.0)),
             child: InkWell(
               onTap: () => numberClick("+"),
@@ -510,7 +511,7 @@ class _HomePageState extends State<HomePage> {
                 child: Text(
                   "+",
                   style: TextStyle(
-                      color: Colors.white,
+                      color: Theme.of(context).accentColor,
                       fontWeight: FontWeight.w100,
                       fontSize: 25.0),
                 ),
@@ -524,7 +525,7 @@ class _HomePageState extends State<HomePage> {
             height: 60,
             width: 60,
             decoration: BoxDecoration(
-                color: Colors.grey.withOpacity(0.1),
+                color: Theme.of(context).buttonColor,
                 borderRadius: BorderRadius.circular(16.0)),
             child: InkWell(
               onTap: () => evaluate("="),
@@ -532,7 +533,7 @@ class _HomePageState extends State<HomePage> {
                 child: Text(
                   "=",
                   style: TextStyle(
-                      color: Colors.white,
+                      color: Theme.of(context).accentColor,
                       fontWeight: FontWeight.w100,
                       fontSize: 25.0),
                 ),
@@ -552,8 +553,8 @@ class _HomePageState extends State<HomePage> {
       height: 400,
       width: 350,
       decoration: BoxDecoration(
-          color: Colors.deepPurple.withOpacity(0.1),
-          border: Border.all(color: Colors.white),
+          color: Theme.of(context).cardColor,
+          border: Border.all(color: Theme.of(context).accentColor),
           borderRadius: BorderRadius.circular(16.0)),
       child: Padding(
         padding: const EdgeInsets.all(10.0),
@@ -591,8 +592,8 @@ class _HomePageState extends State<HomePage> {
       height: 200,
       width: 350,
       decoration: BoxDecoration(
-          color: Colors.deepPurple.withOpacity(0.1),
-          border: Border.all(color: Colors.white),
+          color: Theme.of(context).cardColor,
+          border: Border.all(color: Theme.of(context).accentColor),
           borderRadius: BorderRadius.circular(16.0)),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -601,13 +602,13 @@ class _HomePageState extends State<HomePage> {
           children: [
             Icon(
               Icons.calculate_outlined,
-              color: Colors.white,
+              color: Theme.of(context).accentColor,
               size: 30.0,
             ),
             Text(
               "$_exp",
               style: TextStyle(
-                color: Colors.white,
+                color: Theme.of(context).accentColor,
                 fontSize: 40.0,
                 fontWeight: FontWeight.w100,
               ),
