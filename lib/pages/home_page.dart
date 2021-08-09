@@ -1,3 +1,5 @@
+import 'package:calculator/pages/history_page.dart';
+import 'package:calculator/utils/routes.dart';
 import 'package:calculator/utils/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -600,10 +602,13 @@ class _HomePageState extends State<HomePage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Icon(
-              Icons.calculate_outlined,
-              color: Theme.of(context).accentColor,
-              size: 30.0,
+            InkWell(
+              onTap: () => Navigator.pushNamed(context, Routes.historyRoutes),
+              child: Icon(
+                Icons.calculate_outlined,
+                color: Theme.of(context).accentColor,
+                size: 30.0,
+              ),
             ),
             Text(
               "$_exp",
