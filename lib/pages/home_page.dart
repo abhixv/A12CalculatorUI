@@ -486,10 +486,10 @@ class _HomePageState extends State<HomePage> {
                 color: Theme.of(context).buttonColor,
                 borderRadius: BorderRadius.circular(16.0)),
             child: InkWell(
-              onTap: () {},
+              onTap: () => numberClick("%"),
               child: Center(
                 child: Text(
-                  "",
+                  "%",
                   style: TextStyle(
                       color: Theme.of(context).accentColor,
                       fontWeight: FontWeight.w100,
