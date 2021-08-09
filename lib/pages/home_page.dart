@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:math_expressions/math_expressions.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -7,8 +8,34 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _entered_number = 0;
-  String _entered_symbols = "";
+  String _exp = '';
+
+  void numberClick(String text) {
+    setState(() => _exp += text);
+  }
+
+  void clearAll(String text) {
+    setState(() {
+      _exp = '';
+    });
+  }
+
+  void clear(String text) {
+    setState(() {
+      _exp = '';
+    });
+  }
+
+  void evaluate(String text) {
+    Parser parser = Parser();
+    Expression exp = parser.parse(_exp);
+    ContextModel context = ContextModel();
+
+    setState(() {
+      _exp = exp.evaluate(EvaluationType.REAL, context).toString();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,11 +81,7 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.grey.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(16.0)),
             child: InkWell(
-              onTap: () {
-                setState(() {
-                  _entered_number = _entered_number + 7;
-                });
-              },
+              onTap: () => numberClick("7"),
               child: Center(
                 child: Text(
                   "7",
@@ -81,11 +104,7 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.grey.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(16.0)),
             child: InkWell(
-              onTap: () {
-                setState(() {
-                  _entered_number = _entered_number + 8;
-                });
-              },
+              onTap: () => numberClick("8"),
               child: Center(
                 child: Text(
                   "8",
@@ -108,11 +127,7 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.grey.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(16.0)),
             child: InkWell(
-              onTap: () {
-                setState(() {
-                  _entered_number = _entered_number + 9;
-                });
-              },
+              onTap: () => numberClick("9"),
               child: Center(
                 child: Text(
                   "9",
@@ -135,7 +150,7 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.grey.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(16.0)),
             child: InkWell(
-              onTap: () {},
+              onTap: () => numberClick("/"),
               child: Center(
                 child: Text(
                   "/",
@@ -158,7 +173,7 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.grey.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(16.0)),
             child: InkWell(
-              onTap: () {},
+              onTap: () => clear("C"),
               child: Center(
                 child: Icon(
                   Icons.backspace,
@@ -186,11 +201,7 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.grey.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(16.0)),
             child: InkWell(
-              onTap: () {
-                setState(() {
-                  _entered_number = _entered_number + 4;
-                });
-              },
+              onTap: () => numberClick("4"),
               child: Center(
                 child: Text(
                   "4",
@@ -212,11 +223,7 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.grey.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(16.0)),
             child: InkWell(
-              onTap: () {
-                setState(() {
-                  _entered_number = _entered_number + 5;
-                });
-              },
+              onTap: () => numberClick("5"),
               child: Center(
                 child: Text(
                   "5",
@@ -238,11 +245,7 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.grey.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(16.0)),
             child: InkWell(
-              onTap: () {
-                setState(() {
-                  _entered_number = _entered_number + 6;
-                });
-              },
+              onTap: () => numberClick("6"),
               child: Center(
                 child: Text(
                   "6",
@@ -264,7 +267,7 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.grey.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(16.0)),
             child: InkWell(
-              onTap: () {},
+              onTap: () => numberClick("*"),
               child: Center(
                 child: Text(
                   "x",
@@ -286,10 +289,10 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.grey.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(16.0)),
             child: InkWell(
-              onTap: () {},
+              onTap: () => clearAll("C"),
               child: Center(
                 child: Text(
-                  "",
+                  "C",
                   style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.w100,
@@ -316,11 +319,7 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.grey.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(16.0)),
             child: InkWell(
-              onTap: () {
-                setState(() {
-                  _entered_number = _entered_number + 1;
-                });
-              },
+              onTap: () => numberClick("1"),
               child: Center(
                 child: Text(
                   "1",
@@ -342,11 +341,7 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.grey.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(16.0)),
             child: InkWell(
-              onTap: () {
-                setState(() {
-                  _entered_number = _entered_number + 2;
-                });
-              },
+              onTap: () => numberClick("2"),
               child: Center(
                 child: Text(
                   "2",
@@ -368,11 +363,7 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.grey.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(16.0)),
             child: InkWell(
-              onTap: () {
-                setState(() {
-                  _entered_number = _entered_number + 3;
-                });
-              },
+              onTap: () => numberClick("3"),
               child: Center(
                 child: Text(
                   "3",
@@ -394,7 +385,7 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.grey.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(16.0)),
             child: InkWell(
-              onTap: () {},
+              onTap: () => numberClick("-"),
               child: Center(
                 child: Text(
                   "-",
@@ -446,7 +437,7 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.grey.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(16.0)),
             child: InkWell(
-              onTap: () {},
+              onTap: () => numberClick("."),
               child: Center(
                 child: Text(
                   ".",
@@ -468,11 +459,7 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.grey.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(16.0)),
             child: InkWell(
-              onTap: () {
-                setState(() {
-                  _entered_number = 0;
-                });
-              },
+              onTap: () => numberClick("0"),
               child: Center(
                 child: Text(
                   "0",
@@ -516,7 +503,7 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.grey.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(16.0)),
             child: InkWell(
-              onTap: () {},
+              onTap: () => numberClick("+"),
               child: Center(
                 child: Text(
                   "+",
@@ -538,7 +525,7 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.grey.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(16.0)),
             child: InkWell(
-              onTap: () {},
+              onTap: () => evaluate("="),
               child: Center(
                 child: Text(
                   "=",
@@ -616,7 +603,7 @@ class _HomePageState extends State<HomePage> {
               size: 30.0,
             ),
             Text(
-              "$_entered_number",
+              "$_exp",
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 40.0,
