@@ -1,4 +1,3 @@
-import 'package:calculator/pages/history_page.dart';
 import 'package:calculator/pages/home_page.dart';
 import 'package:calculator/utils/routes.dart';
 import 'package:calculator/utils/theme.dart';
@@ -19,9 +18,6 @@ class MyApp extends StatelessWidget {
       darkTheme: MyTheme.dark(context),
       home: HomePage(),
       initialRoute: Routes.homeRoutes,
-      routes: {
-        Routes.historyRoutes: (context) => HistoryPage(),
-      },
     );
   }
 }
