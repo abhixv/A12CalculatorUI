@@ -12,7 +12,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   String _exp = '';
   String _record = '';
-  double _height = 200;
+  double _height = 250;
   double _width = 350;
   String _history = '';
   String _displayText = '';
@@ -96,12 +96,14 @@ class _HomePageState extends State<HomePage> {
                         ),
                         Container(
                           alignment: Alignment.topRight,
-                          child: Text(
-                            "$_history",
-                            style: TextStyle(
-                              color: Theme.of(context).accentColor,
-                              fontSize: 40.0,
-                              fontWeight: FontWeight.w100,
+                          child: Flexible(
+                            child: Text(
+                              "$_history",
+                              style: TextStyle(
+                                color: Theme.of(context).accentColor,
+                                fontSize: 40.0,
+                                fontWeight: FontWeight.w100,
+                              ),
                             ),
                           ),
                         ),
@@ -114,14 +116,14 @@ class _HomePageState extends State<HomePage> {
                             InkWell(
                               onTap: () {
                                 setState(() {
-                                  _height = 300;
+                                  _height = 600;
                                   _history = _record;
                                   _displayText = "History";
                                 });
                               },
-                              onLongPress: () {
+                              onDoubleTap: () {
                                 setState(() {
-                                  _height = 200;
+                                  _height = 250;
                                   _history = '';
                                   _displayText = '';
                                 });
@@ -132,12 +134,14 @@ class _HomePageState extends State<HomePage> {
                                 size: 30.0,
                               ),
                             ),
-                            Text(
-                              "$_exp",
-                              style: TextStyle(
-                                color: Theme.of(context).accentColor,
-                                fontSize: 40.0,
-                                fontWeight: FontWeight.w100,
+                            Flexible(
+                              child: Text(
+                                "$_exp",
+                                style: TextStyle(
+                                  color: Theme.of(context).accentColor,
+                                  fontSize: 40.0,
+                                  fontWeight: FontWeight.w100,
+                                ),
                               ),
                             ),
                           ],
