@@ -16,6 +16,8 @@ class _HomePageState extends State<HomePage> {
   double _width = 350;
   String _history = '';
   String _displayText = '';
+  double _keyHeight = 400;
+  double _keyWidth = 350;
 
   void numberClick(String text) {
     setState(() => _exp += text);
@@ -119,6 +121,8 @@ class _HomePageState extends State<HomePage> {
                                   _height = 600;
                                   _history = _record;
                                   _displayText = "History";
+                                  _keyHeight = 0;
+                                  _keyWidth = 0;
                                 });
                               },
                               onDoubleTap: () {
@@ -126,6 +130,8 @@ class _HomePageState extends State<HomePage> {
                                   _height = 250;
                                   _history = '';
                                   _displayText = '';
+                                  _keyHeight = 400;
+                                  _keyWidth = 350;
                                 });
                               },
                               child: Icon(
@@ -638,8 +644,8 @@ class _HomePageState extends State<HomePage> {
   Container keyCard() {
     return Container(
       alignment: Alignment.center,
-      height: 400,
-      width: 350,
+      height: _keyHeight,
+      width: _keyWidth,
       decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
           border: Border.all(color: Theme.of(context).accentColor),
