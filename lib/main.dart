@@ -17,7 +17,6 @@ class MyApp extends StatelessWidget {
       theme: MyTheme.light(context),
       darkTheme: MyTheme.dark(context),
       home: HomePage(),
-      initialRoute: Routes.homeRoutes,
     );
   }
 }

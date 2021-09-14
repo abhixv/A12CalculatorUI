@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:calculator/utils/routes.dart';
 import 'package:calculator/utils/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:math_expressions/math_expressions.dart';
 
@@ -12,8 +15,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   String _exp = '';
   String _record = '';
-  double _height = 250;
-  double _width = 350;
   String _history = '';
   String _displayText = '';
   double _keyHeight = 400;
@@ -26,7 +27,7 @@ class _HomePageState extends State<HomePage> {
   void clearAll(String text) {
     setState(() {
       _record = '';
-      _exp = '';
+      _exp = '0';
     });
   }
 
@@ -50,119 +51,50 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Calculator",
-          style: TextStyle(
-              //fontFamily: GoogleFonts.poppins().fontFamily,
-              fontWeight: FontWeight.w100),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-      ),
       backgroundColor: Theme.of(context).backgroundColor,
-      body: Center(
-        child: ListView(
-          children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: 30.0,
-                ),
-                AnimatedContainer(
-                  alignment: Alignment.center,
-                  height: _height,
-                  width: _width,
-                  duration: const Duration(seconds: 1),
-                  decoration: BoxDecoration(
-                      color: Theme.of(context).cardColor,
-                      border: Border.all(color: Theme.of(context).accentColor),
-                      borderRadius: BorderRadius.circular(16.0)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            "$_displayText",
-                            style: TextStyle(
-                              color: Theme.of(context).accentColor,
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.w100,
-                            ),
-                          ),
-                        ),
-                        Container(
+      body: SingleChildScrollView(
+        child: Container(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                height: MediaQuery.of(context).size.height * 0.43,
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                    color: Theme.of(context).cardColor,
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(40),
+                        bottomRight: Radius.circular(40))),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SafeArea(
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 16, top: 50),
+                        child: Container(
                           alignment: Alignment.topRight,
-                          child: Flexible(
-                            child: Text(
-                              "$_history",
-                              style: TextStyle(
+                          child: Text(
+                            "$_exp",
+                            style: TextStyle(
                                 color: Theme.of(context).accentColor,
-                                fontSize: 40.0,
-                                fontWeight: FontWeight.w100,
-                              ),
-                            ),
+                                fontSize: 60,
+                                fontWeight: FontWeight.w400),
                           ),
                         ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                setState(() {
-                                  _height = 600;
-                                  _history = _record;
-                                  _displayText = "History";
-                                  _keyHeight = 0;
-                                  _keyWidth = 0;
-                                });
-                              },
-                              onDoubleTap: () {
-                                setState(() {
-                                  _height = 250;
-                                  _history = '';
-                                  _displayText = '';
-                                  _keyHeight = 400;
-                                  _keyWidth = 350;
-                                });
-                              },
-                              child: Icon(
-                                Icons.calculate_outlined,
-                                color: Theme.of(context).accentColor,
-                                size: 30.0,
-                              ),
-                            ),
-                            Flexible(
-                              child: Text(
-                                "$_exp",
-                                style: TextStyle(
-                                  color: Theme.of(context).accentColor,
-                                  fontSize: 40.0,
-                                  fontWeight: FontWeight.w100,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
+                      ),
                     ),
-                  ),
+                  ],
                 ),
-                SizedBox(
-                  height: 30.0,
-                ),
-                keyCard(),
-              ],
-            ),
-          ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                child: keyCard(),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -170,413 +102,60 @@ class _HomePageState extends State<HomePage> {
 
   Row first_row() {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-            height: 60,
-            width: 60,
+            height: MediaQuery.of(context).size.height / 11.5,
+            width: MediaQuery.of(context).size.width / 5.45,
             decoration: BoxDecoration(
                 color: Theme.of(context).buttonColor,
-                borderRadius: BorderRadius.circular(16.0)),
-            child: InkWell(
-              onTap: () => numberClick("7"),
-              child: Center(
-                child: Text(
-                  "7",
-                  style: TextStyle(
-                      color: Theme.of(context).accentColor,
-                      fontWeight: FontWeight.w100,
-                      fontSize: 25.0),
-                ),
-              ),
-              borderRadius: BorderRadius.circular(16.0),
-            )),
-        SizedBox(
-          width: 5.0,
-        ),
-        Container(
-            alignment: Alignment.center,
-            height: 60,
-            width: 60,
-            decoration: BoxDecoration(
-                color: Theme.of(context).buttonColor,
-                borderRadius: BorderRadius.circular(16.0)),
-            child: InkWell(
-              onTap: () => numberClick("8"),
-              child: Center(
-                child: Text(
-                  "8",
-                  style: TextStyle(
-                      color: Theme.of(context).accentColor,
-                      fontWeight: FontWeight.w100,
-                      fontSize: 25.0),
-                ),
-              ),
-              borderRadius: BorderRadius.circular(16.0),
-            )),
-        SizedBox(
-          width: 5.0,
-        ),
-        Container(
-            alignment: Alignment.center,
-            height: 60,
-            width: 60,
-            decoration: BoxDecoration(
-                color: Theme.of(context).buttonColor,
-                borderRadius: BorderRadius.circular(16.0)),
-            child: InkWell(
-              onTap: () => numberClick("9"),
-              child: Center(
-                child: Text(
-                  "9",
-                  style: TextStyle(
-                      color: Theme.of(context).accentColor,
-                      fontWeight: FontWeight.w100,
-                      fontSize: 25.0),
-                ),
-              ),
-              borderRadius: BorderRadius.circular(16.0),
-            )),
-        SizedBox(
-          width: 5.0,
-        ),
-        Container(
-            alignment: Alignment.center,
-            height: 60,
-            width: 60,
-            decoration: BoxDecoration(
-                color: Theme.of(context).buttonColor,
-                borderRadius: BorderRadius.circular(16.0)),
-            child: InkWell(
-              onTap: () => numberClick("/"),
-              child: Center(
-                child: Text(
-                  "/",
-                  style: TextStyle(
-                      color: Theme.of(context).accentColor,
-                      fontWeight: FontWeight.w100,
-                      fontSize: 25.0),
-                ),
-              ),
-              borderRadius: BorderRadius.circular(16.0),
-            )),
-        SizedBox(
-          width: 5.0,
-        ),
-        Container(
-            alignment: Alignment.center,
-            height: 60,
-            width: 60,
-            decoration: BoxDecoration(
-                color: Theme.of(context).buttonColor,
-                borderRadius: BorderRadius.circular(16.0)),
+                borderRadius: BorderRadius.circular(50.0)),
             child: InkWell(
               onTap: () => clear("C"),
-              child: Center(
-                child: Icon(
-                  Icons.backspace,
-                  color: Theme.of(context).accentColor,
-                  size: 16.0,
-                ),
-              ),
-              borderRadius: BorderRadius.circular(16.0),
-            )),
-        SizedBox(
-          width: 5.0,
-        ),
-      ],
-    );
-  }
-
-  Row second_row() {
-    return Row(
-      children: [
-        Container(
-            margin: EdgeInsets.zero,
-            height: 60,
-            width: 60,
-            decoration: BoxDecoration(
-                color: Theme.of(context).buttonColor,
-                borderRadius: BorderRadius.circular(16.0)),
-            child: InkWell(
-              onTap: () => numberClick("4"),
-              child: Center(
-                child: Text(
-                  "4",
-                  style: TextStyle(
-                      color: Theme.of(context).accentColor,
-                      fontWeight: FontWeight.w100,
-                      fontSize: 25.0),
-                ),
-              ),
-              borderRadius: BorderRadius.circular(16.0),
-            )),
-        SizedBox(
-          width: 5.0,
-        ),
-        Container(
-            height: 60,
-            width: 60,
-            decoration: BoxDecoration(
-                color: Theme.of(context).buttonColor,
-                borderRadius: BorderRadius.circular(16.0)),
-            child: InkWell(
-              onTap: () => numberClick("5"),
-              child: Center(
-                child: Text(
-                  "5",
-                  style: TextStyle(
-                      color: Theme.of(context).accentColor,
-                      fontWeight: FontWeight.w100,
-                      fontSize: 25.0),
-                ),
-              ),
-              borderRadius: BorderRadius.circular(16.0),
-            )),
-        SizedBox(
-          width: 5.0,
-        ),
-        Container(
-            height: 60,
-            width: 60,
-            decoration: BoxDecoration(
-                color: Theme.of(context).buttonColor,
-                borderRadius: BorderRadius.circular(16.0)),
-            child: InkWell(
-              onTap: () => numberClick("6"),
-              child: Center(
-                child: Text(
-                  "6",
-                  style: TextStyle(
-                      color: Theme.of(context).accentColor,
-                      fontWeight: FontWeight.w100,
-                      fontSize: 25.0),
-                ),
-              ),
-              borderRadius: BorderRadius.circular(16.0),
-            )),
-        SizedBox(
-          width: 5.0,
-        ),
-        Container(
-            height: 60,
-            width: 60,
-            decoration: BoxDecoration(
-                color: Theme.of(context).buttonColor,
-                borderRadius: BorderRadius.circular(16.0)),
-            child: InkWell(
-              onTap: () => numberClick("*"),
-              child: Center(
-                child: Text(
-                  "x",
-                  style: TextStyle(
-                      color: Theme.of(context).accentColor,
-                      fontWeight: FontWeight.w100,
-                      fontSize: 25.0),
-                ),
-              ),
-              borderRadius: BorderRadius.circular(16.0),
-            )),
-        SizedBox(
-          width: 5.0,
-        ),
-        Container(
-            height: 60,
-            width: 60,
-            decoration: BoxDecoration(
-                color: Theme.of(context).buttonColor,
-                borderRadius: BorderRadius.circular(16.0)),
-            child: InkWell(
-              onTap: () => clearAll("C"),
               child: Center(
                 child: Text(
                   "C",
                   style: TextStyle(
                       color: Theme.of(context).accentColor,
-                      fontWeight: FontWeight.w100,
-                      fontSize: 25.0),
+                      fontWeight: FontWeight.w400,
+                      fontSize: 30.0),
                 ),
               ),
-              borderRadius: BorderRadius.circular(16.0),
+              borderRadius: BorderRadius.circular(50.0),
             )),
         SizedBox(
-          width: 5.0,
+          width: 15.0,
         ),
-      ],
-    );
-  }
-
-  Row third_row() {
-    return Row(
-      children: [
         Container(
-            margin: EdgeInsets.zero,
-            height: 60,
-            width: 60,
+            alignment: Alignment.center,
+            height: MediaQuery.of(context).size.height / 11.5,
+            width: MediaQuery.of(context).size.width / 5.45,
             decoration: BoxDecoration(
                 color: Theme.of(context).buttonColor,
-                borderRadius: BorderRadius.circular(16.0)),
+                borderRadius: BorderRadius.circular(50.0)),
             child: InkWell(
-              onTap: () => numberClick("1"),
+              onTap: () => numberClick("()"),
               child: Center(
                 child: Text(
-                  "1",
+                  "()",
                   style: TextStyle(
                       color: Theme.of(context).accentColor,
-                      fontWeight: FontWeight.w100,
-                      fontSize: 25.0),
+                      fontWeight: FontWeight.w400,
+                      fontSize: 30.0),
                 ),
               ),
-              borderRadius: BorderRadius.circular(16.0),
+              borderRadius: BorderRadius.circular(50.0),
             )),
         SizedBox(
-          width: 5.0,
+          width: 15.0,
         ),
         Container(
-            height: 60,
-            width: 60,
+            alignment: Alignment.center,
+            height: MediaQuery.of(context).size.height / 11.5,
+            width: MediaQuery.of(context).size.width / 5.45,
             decoration: BoxDecoration(
                 color: Theme.of(context).buttonColor,
-                borderRadius: BorderRadius.circular(16.0)),
-            child: InkWell(
-              onTap: () => numberClick("2"),
-              child: Center(
-                child: Text(
-                  "2",
-                  style: TextStyle(
-                      color: Theme.of(context).accentColor,
-                      fontWeight: FontWeight.w100,
-                      fontSize: 25.0),
-                ),
-              ),
-              borderRadius: BorderRadius.circular(16.0),
-            )),
-        SizedBox(
-          width: 5.0,
-        ),
-        Container(
-            height: 60,
-            width: 60,
-            decoration: BoxDecoration(
-                color: Theme.of(context).buttonColor,
-                borderRadius: BorderRadius.circular(16.0)),
-            child: InkWell(
-              onTap: () => numberClick("3"),
-              child: Center(
-                child: Text(
-                  "3",
-                  style: TextStyle(
-                      color: Theme.of(context).accentColor,
-                      fontWeight: FontWeight.w100,
-                      fontSize: 25.0),
-                ),
-              ),
-              borderRadius: BorderRadius.circular(16.0),
-            )),
-        SizedBox(
-          width: 5.0,
-        ),
-        Container(
-            height: 60,
-            width: 60,
-            decoration: BoxDecoration(
-                color: Theme.of(context).buttonColor,
-                borderRadius: BorderRadius.circular(16.0)),
-            child: InkWell(
-              onTap: () => numberClick("-"),
-              child: Center(
-                child: Text(
-                  "-",
-                  style: TextStyle(
-                      color: Theme.of(context).accentColor,
-                      fontWeight: FontWeight.w100,
-                      fontSize: 25.0),
-                ),
-              ),
-              borderRadius: BorderRadius.circular(16.0),
-            )),
-        SizedBox(
-          width: 5.0,
-        ),
-        Container(
-            height: 60,
-            width: 60,
-            decoration: BoxDecoration(
-                color: Theme.of(context).buttonColor,
-                borderRadius: BorderRadius.circular(16.0)),
-            child: InkWell(
-              onTap: () {},
-              child: Center(
-                child: Text(
-                  "",
-                  style: TextStyle(
-                      color: Theme.of(context).accentColor,
-                      fontWeight: FontWeight.w100,
-                      fontSize: 25.0),
-                ),
-              ),
-              borderRadius: BorderRadius.circular(16.0),
-            )),
-        SizedBox(
-          width: 5.0,
-        ),
-      ],
-    );
-  }
-
-  Row fourth_row() {
-    return Row(
-      children: [
-        Container(
-            margin: EdgeInsets.zero,
-            height: 60,
-            width: 60,
-            decoration: BoxDecoration(
-                color: Theme.of(context).buttonColor,
-                borderRadius: BorderRadius.circular(16.0)),
-            child: InkWell(
-              onTap: () => numberClick("."),
-              child: Center(
-                child: Text(
-                  ".",
-                  style: TextStyle(
-                      color: Theme.of(context).accentColor,
-                      fontWeight: FontWeight.w100,
-                      fontSize: 25.0),
-                ),
-              ),
-              borderRadius: BorderRadius.circular(16.0),
-            )),
-        SizedBox(
-          width: 5.0,
-        ),
-        Container(
-            height: 60,
-            width: 60,
-            decoration: BoxDecoration(
-                color: Theme.of(context).buttonColor,
-                borderRadius: BorderRadius.circular(16.0)),
-            child: InkWell(
-              onTap: () => numberClick("0"),
-              child: Center(
-                child: Text(
-                  "0",
-                  style: TextStyle(
-                      color: Theme.of(context).accentColor,
-                      fontWeight: FontWeight.w100,
-                      fontSize: 25.0),
-                ),
-              ),
-              borderRadius: BorderRadius.circular(16.0),
-            )),
-        SizedBox(
-          width: 5.0,
-        ),
-        Container(
-            height: 60,
-            width: 60,
-            decoration: BoxDecoration(
-                color: Theme.of(context).buttonColor,
-                borderRadius: BorderRadius.circular(16.0)),
+                borderRadius: BorderRadius.circular(50.0)),
             child: InkWell(
               onTap: () => numberClick("%"),
               child: Center(
@@ -584,43 +163,407 @@ class _HomePageState extends State<HomePage> {
                   "%",
                   style: TextStyle(
                       color: Theme.of(context).accentColor,
-                      fontWeight: FontWeight.w100,
-                      fontSize: 25.0),
+                      fontWeight: FontWeight.w400,
+                      fontSize: 30.0),
                 ),
               ),
-              borderRadius: BorderRadius.circular(16.0),
+              borderRadius: BorderRadius.circular(50.0),
             )),
         SizedBox(
-          width: 5.0,
+          width: 15.0,
         ),
         Container(
-            height: 60,
-            width: 60,
+            alignment: Alignment.center,
+            height: MediaQuery.of(context).size.height / 11.5,
+            width: MediaQuery.of(context).size.width / 5.45,
             decoration: BoxDecoration(
                 color: Theme.of(context).buttonColor,
-                borderRadius: BorderRadius.circular(16.0)),
+                borderRadius: BorderRadius.circular(50.0)),
             child: InkWell(
-              onTap: () => numberClick("+"),
+              onTap: () => numberClick("/"),
+              child: Center(
+                child: Text(
+                  "/",
+                  style: TextStyle(
+                      color: Theme.of(context).accentColor,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 30.0),
+                ),
+              ),
+              borderRadius: BorderRadius.circular(50.0),
+            )),
+        SizedBox(
+          width: 15.0,
+        ),
+      ],
+    );
+  }
+
+  Row second_row() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+            margin: EdgeInsets.zero,
+            height: MediaQuery.of(context).size.height / 11.5,
+            width: MediaQuery.of(context).size.width / 5.45,
+            decoration: BoxDecoration(
+                color: Theme.of(context).buttonColor,
+                borderRadius: BorderRadius.circular(50.0)),
+            child: InkWell(
+              onTap: () => numberClick("7"),
+              child: Center(
+                child: Text(
+                  "7",
+                  style: TextStyle(
+                      color: Theme.of(context).accentColor,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 30.0),
+                ),
+              ),
+              borderRadius: BorderRadius.circular(50.0),
+            )),
+        SizedBox(
+          width: 15.0,
+        ),
+        Container(
+            height: MediaQuery.of(context).size.height / 11.5,
+            width: MediaQuery.of(context).size.width / 5.45,
+            decoration: BoxDecoration(
+                color: Theme.of(context).buttonColor,
+                borderRadius: BorderRadius.circular(50.0)),
+            child: InkWell(
+              onTap: () => numberClick("8"),
+              child: Center(
+                child: Text(
+                  "8",
+                  style: TextStyle(
+                      color: Theme.of(context).accentColor,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 30.0),
+                ),
+              ),
+              borderRadius: BorderRadius.circular(50.0),
+            )),
+        SizedBox(
+          width: 15.0,
+        ),
+        Container(
+            height: MediaQuery.of(context).size.height / 11.5,
+            width: MediaQuery.of(context).size.width / 5.45,
+            decoration: BoxDecoration(
+                color: Theme.of(context).buttonColor,
+                borderRadius: BorderRadius.circular(50.0)),
+            child: InkWell(
+              onTap: () => numberClick("9"),
+              child: Center(
+                child: Text(
+                  "9",
+                  style: TextStyle(
+                      color: Theme.of(context).accentColor,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 30.0),
+                ),
+              ),
+              borderRadius: BorderRadius.circular(50.0),
+            )),
+        SizedBox(
+          width: 15.0,
+        ),
+        Container(
+            height: MediaQuery.of(context).size.height / 11.5,
+            width: MediaQuery.of(context).size.width / 5.45,
+            decoration: BoxDecoration(
+                color: Theme.of(context).buttonColor,
+                borderRadius: BorderRadius.circular(50.0)),
+            child: InkWell(
+              onTap: () => numberClick("*"),
+              child: Center(
+                child: Text(
+                  "x",
+                  style: TextStyle(
+                      color: Theme.of(context).accentColor,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 30.0),
+                ),
+              ),
+              borderRadius: BorderRadius.circular(50.0),
+            )),
+        SizedBox(
+          width: 15.0,
+        ),
+      ],
+    );
+  }
+
+  Row third_row() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+            margin: EdgeInsets.zero,
+            height: MediaQuery.of(context).size.height / 11.5,
+            width: MediaQuery.of(context).size.width / 5.45,
+            decoration: BoxDecoration(
+                color: Theme.of(context).buttonColor,
+                borderRadius: BorderRadius.circular(50.0)),
+            child: InkWell(
+              onTap: () => numberClick("4"),
+              child: Center(
+                child: Text(
+                  "4",
+                  style: TextStyle(
+                      color: Theme.of(context).accentColor,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 30.0),
+                ),
+              ),
+              borderRadius: BorderRadius.circular(50.0),
+            )),
+        SizedBox(
+          width: 15.0,
+        ),
+        Container(
+            height: MediaQuery.of(context).size.height / 11.5,
+            width: MediaQuery.of(context).size.width / 5.45,
+            decoration: BoxDecoration(
+                color: Theme.of(context).buttonColor,
+                borderRadius: BorderRadius.circular(50.0)),
+            child: InkWell(
+              onTap: () => numberClick("5"),
+              child: Center(
+                child: Text(
+                  "5",
+                  style: TextStyle(
+                      color: Theme.of(context).accentColor,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 30.0),
+                ),
+              ),
+              borderRadius: BorderRadius.circular(50.0),
+            )),
+        SizedBox(
+          width: 15.0,
+        ),
+        Container(
+            height: MediaQuery.of(context).size.height / 11.5,
+            width: MediaQuery.of(context).size.width / 5.45,
+            decoration: BoxDecoration(
+                color: Theme.of(context).buttonColor,
+                borderRadius: BorderRadius.circular(50.0)),
+            child: InkWell(
+              onTap: () => numberClick("6"),
+              child: Center(
+                child: Text(
+                  "6",
+                  style: TextStyle(
+                      color: Theme.of(context).accentColor,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 30.0),
+                ),
+              ),
+              borderRadius: BorderRadius.circular(50.0),
+            )),
+        SizedBox(
+          width: 15.0,
+        ),
+        Container(
+            height: MediaQuery.of(context).size.height / 11.5,
+            width: MediaQuery.of(context).size.width / 5.45,
+            decoration: BoxDecoration(
+                color: Theme.of(context).buttonColor,
+                borderRadius: BorderRadius.circular(50.0)),
+            child: InkWell(
+              onTap: () => numberClick("-"),
+              child: Center(
+                child: Text(
+                  "-",
+                  style: TextStyle(
+                      color: Theme.of(context).accentColor,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 30.0),
+                ),
+              ),
+              borderRadius: BorderRadius.circular(50.0),
+            )),
+        SizedBox(
+          width: 15.0,
+        ),
+      ],
+    );
+  }
+
+  Row fourth_row() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+            margin: EdgeInsets.zero,
+            height: MediaQuery.of(context).size.height / 11.5,
+            width: MediaQuery.of(context).size.width / 5.45,
+            decoration: BoxDecoration(
+                color: Theme.of(context).buttonColor,
+                borderRadius: BorderRadius.circular(50.0)),
+            child: InkWell(
+              onTap: () => numberClick("1"),
+              child: Center(
+                child: Text(
+                  "1",
+                  style: TextStyle(
+                      color: Theme.of(context).accentColor,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 30.0),
+                ),
+              ),
+              borderRadius: BorderRadius.circular(50.0),
+            )),
+        SizedBox(
+          width: 15.0,
+        ),
+        Container(
+            height: MediaQuery.of(context).size.height / 11.5,
+            width: MediaQuery.of(context).size.width / 5.45,
+            decoration: BoxDecoration(
+                color: Theme.of(context).buttonColor,
+                borderRadius: BorderRadius.circular(50.0)),
+            child: InkWell(
+              onTap: () => numberClick("2"),
+              child: Center(
+                child: Text(
+                  "2",
+                  style: TextStyle(
+                      color: Theme.of(context).accentColor,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 30.0),
+                ),
+              ),
+              borderRadius: BorderRadius.circular(50.0),
+            )),
+        SizedBox(
+          width: 15.0,
+        ),
+        Container(
+            height: MediaQuery.of(context).size.height / 11.5,
+            width: MediaQuery.of(context).size.width / 5.45,
+            decoration: BoxDecoration(
+                color: Theme.of(context).buttonColor,
+                borderRadius: BorderRadius.circular(50.0)),
+            child: InkWell(
+              onTap: () => numberClick("3"),
+              child: Center(
+                child: Text(
+                  "3",
+                  style: TextStyle(
+                      color: Theme.of(context).accentColor,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 30.0),
+                ),
+              ),
+              borderRadius: BorderRadius.circular(50.0),
+            )),
+        SizedBox(
+          width: 15.0,
+        ),
+        Container(
+            height: MediaQuery.of(context).size.height / 11.5,
+            width: MediaQuery.of(context).size.width / 5.45,
+            decoration: BoxDecoration(
+                color: Theme.of(context).buttonColor,
+                borderRadius: BorderRadius.circular(50.0)),
+            child: InkWell(
+              onTap: () => evaluate("+"),
               child: Center(
                 child: Text(
                   "+",
                   style: TextStyle(
                       color: Theme.of(context).accentColor,
-                      fontWeight: FontWeight.w100,
-                      fontSize: 25.0),
+                      fontWeight: FontWeight.w400,
+                      fontSize: 30.0),
                 ),
               ),
-              borderRadius: BorderRadius.circular(16.0),
+              borderRadius: BorderRadius.circular(50.0),
             )),
         SizedBox(
-          width: 5.0,
+          width: 15.0,
         ),
+      ],
+    );
+  }
+
+  Row fifth_row() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
         Container(
-            height: 60,
-            width: 60,
+            margin: EdgeInsets.zero,
+            height: MediaQuery.of(context).size.height / 11.5,
+            width: MediaQuery.of(context).size.width / 5.45,
             decoration: BoxDecoration(
                 color: Theme.of(context).buttonColor,
-                borderRadius: BorderRadius.circular(16.0)),
+                borderRadius: BorderRadius.circular(50.0)),
+            child: InkWell(
+              onTap: () => numberClick("0"),
+              child: Center(
+                child: Text(
+                  "0",
+                  style: TextStyle(
+                      color: Theme.of(context).accentColor,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 30.0),
+                ),
+              ),
+              borderRadius: BorderRadius.circular(50.0),
+            )),
+        SizedBox(
+          width: 15.0,
+        ),
+        Container(
+            height: MediaQuery.of(context).size.height / 11.5,
+            width: MediaQuery.of(context).size.width / 5.45,
+            decoration: BoxDecoration(
+                color: Theme.of(context).buttonColor,
+                borderRadius: BorderRadius.circular(50.0)),
+            child: InkWell(
+              onTap: () => numberClick("."),
+              child: Center(
+                child: Text(
+                  ".",
+                  style: TextStyle(
+                      color: Theme.of(context).accentColor,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 30.0),
+                ),
+              ),
+              borderRadius: BorderRadius.circular(50.0),
+            )),
+        SizedBox(
+          width: 15.0,
+        ),
+        Container(
+            height: MediaQuery.of(context).size.height / 11.5,
+            width: MediaQuery.of(context).size.width / 5.45,
+            decoration: BoxDecoration(
+                color: Theme.of(context).buttonColor,
+                borderRadius: BorderRadius.circular(50.0)),
+            child: InkWell(
+              onTap: () => clear("C"),
+              child: Center(
+                  child: Icon(
+                Icons.backspace_outlined,
+                size: 30,
+                color: Theme.of(context).accentColor,
+              )),
+              borderRadius: BorderRadius.circular(50.0),
+            )),
+        SizedBox(
+          width: 15.0,
+        ),
+        Container(
+            height: MediaQuery.of(context).size.height / 11,
+            width: MediaQuery.of(context).size.width / 5,
+            decoration: BoxDecoration(
+                color: Theme.of(context).canvasColor,
+                borderRadius: BorderRadius.circular(50.0)),
             child: InkWell(
               onTap: () => evaluate("="),
               child: Center(
@@ -628,55 +571,46 @@ class _HomePageState extends State<HomePage> {
                   "=",
                   style: TextStyle(
                       color: Theme.of(context).accentColor,
-                      fontWeight: FontWeight.w100,
-                      fontSize: 25.0),
+                      fontWeight: FontWeight.w400,
+                      fontSize: 30.0),
                 ),
               ),
-              borderRadius: BorderRadius.circular(16.0),
+              borderRadius: BorderRadius.circular(50.0),
             )),
         SizedBox(
-          width: 5.0,
+          width: 15.0,
         ),
       ],
     );
   }
 
-  Container keyCard() {
-    return Container(
-      alignment: Alignment.center,
-      height: _keyHeight,
-      width: _keyWidth,
-      decoration: BoxDecoration(
-          color: Theme.of(context).cardColor,
-          border: Border.all(color: Theme.of(context).accentColor),
-          borderRadius: BorderRadius.circular(16.0)),
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: 10.0,
-            ),
-            first_row(),
-            SizedBox(
-              height: 10.0,
-            ),
-            second_row(),
-            SizedBox(
-              height: 10.0,
-            ),
-            third_row(),
-            SizedBox(
-              height: 10.0,
-            ),
-            fourth_row(),
-            SizedBox(
-              height: 10.0,
-            ),
-          ],
+  Column keyCard() {
+    return Column(
+      children: [
+        SizedBox(
+          height: 10.0,
         ),
-      ),
+        first_row(),
+        SizedBox(
+          height: 10.0,
+        ),
+        second_row(),
+        SizedBox(
+          height: 10.0,
+        ),
+        third_row(),
+        SizedBox(
+          height: 10.0,
+        ),
+        fourth_row(),
+        SizedBox(
+          height: 10.0,
+        ),
+        fifth_row(),
+        SizedBox(
+          height: 10.0,
+        ),
+      ],
     );
   }
 }
