@@ -1,10 +1,5 @@
-import 'dart:math';
-
-import 'package:calculator/utils/routes.dart';
-import 'package:calculator/utils/theme.dart';
+// ignore_for_file: deprecated_member_use, non_constant_identifier_names
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:math_expressions/math_expressions.dart';
 
 class HomePage extends StatefulWidget {
@@ -92,7 +87,7 @@ class _HomePageState extends State<HomePage> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 175),
                 child: Divider(
-                  color: Colors.white,
+                  color: Theme.of(context).accentColor,
                   thickness: 5,
                 ),
               ),

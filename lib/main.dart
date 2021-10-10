@@ -1,5 +1,4 @@
 import 'package:calculator/pages/home_page.dart';
-import 'package:calculator/utils/routes.dart';
 import 'package:calculator/utils/theme.dart';
 import 'package:flutter/material.dart';
 
