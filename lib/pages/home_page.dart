@@ -89,6 +89,13 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 height: 10,
               ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 175),
+                child: Divider(
+                  color: Colors.white,
+                  thickness: 5,
+                ),
+              ),
               Container(
                 width: MediaQuery.of(context).size.width,
                 child: keyCard(),
